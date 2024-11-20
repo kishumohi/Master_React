@@ -31,7 +31,6 @@ export class AuthService {
   }
 
   async Login({ email, password }) {
-    // eslint-disable-next-line no-useless-catch
     try {
       return await this.account.createEmailPasswordSession(email, password);
     } catch (error) {
