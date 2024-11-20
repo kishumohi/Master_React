@@ -5,5 +5,17 @@ import LogoutBtn from "./Header/LogoutBtn.jsx";
 import Logo from "./Logo.jsx";
 import Button from "./Button.jsx";
 import Input from "./Input.jsx";
+import RTE from "./RTE.jsx";
+import Select from "./Select.jsx";
 
-export { Input, Button, Logo, Container, Header, Footer, LogoutBtn };
+export {
+  Select,
+  Input,
+  Button,
+  Logo,
+  Container,
+  Header,
+  Footer,
+  LogoutBtn,
+  RTE,
+};
