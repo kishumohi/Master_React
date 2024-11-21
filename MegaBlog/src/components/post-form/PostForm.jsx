@@ -30,7 +30,7 @@ export default function PostForm({ post }) {
         appwriteService.DeleteFile(post.featuredImage);
       }
 
-      const dbPost = await appwriteService.updatePost(post.$id, {
+      const dbPost = await appwriteService.UpdatePost(post.$id, {
         ...data,
         featuredImage: file ? file.$id : undefined,
       });
