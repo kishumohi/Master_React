@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { Container, Post, PostForm } from "../components/index.js";
+import { Container, PostForm } from "../components/index.js";
 
 function AddPost() {
   return (

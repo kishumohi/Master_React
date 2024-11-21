@@ -11,6 +11,7 @@ import Signup from "./Signup.jsx";
 import Login from "./Login.jsx";
 import PostCard from "./PostCard.jsx";
 import PostForm from "./post-form/PostForm.jsx";
+import AuthLayout from "./AuthLayout.jsx";
 
 export {
   Select,
@@ -26,4 +27,5 @@ export {
   Login,
   PostCard,
   PostForm,
+  AuthLayout,
 };

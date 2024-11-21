@@ -4,7 +4,7 @@ import appwriteService from "../appwrite/appwriteConfig.js";
 import { Container, PostCard } from "../components/index.js";
 
 function Home() {
-  const [posts, setPosts] = useState(null);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     appwriteService.GetPost().then((posts) => {

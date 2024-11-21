@@ -6,6 +6,7 @@ function Signup() {
   return (
     <div className="py-8">
       <SignupComponent />
+      <h1>kishan</h1>
     </div>
   );
 }

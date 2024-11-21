@@ -1,25 +1,24 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Input, RTE, Select } from "../index.js";
+import { Button, Input, RTE, Select } from "..";
 import appwriteService from "../../appwrite/appwriteConfig.js";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-function PostForm({ post }) {
+export default function PostForm({ post }) {
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({
       defaultValues: {
         title: post?.title || "",
-        slug: post?.slug || "",
+        slug: post?.$id || "",
         content: post?.content || "",
         status: post?.status || "active",
       },
     });
 
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.user.userData);
+  const userData = useSelector((state) => state.auth.userData);
 
   const submit = async (data) => {
     if (post) {
@@ -28,22 +27,23 @@ function PostForm({ post }) {
         : null;
 
       if (file) {
-        await appwriteService.DeleteFile(post.featuredImage);
+        appwriteService.DeleteFile(post.featuredImage);
       }
-      const dbPost = await appwriteService.UpdatePost(post.$id, {
+
+      const dbPost = await appwriteService.updatePost(post.$id, {
         ...data,
         featuredImage: file ? file.$id : undefined,
       });
+
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
       }
     } else {
       const file = await appwriteService.UploadFile(data.image[0]);
+
       if (file) {
         const fileId = file.$id;
-
         data.featuredImage = fileId;
-
         const dbPost = await appwriteService.CreatePost({
           ...data,
           userId: userData.$id,
@@ -61,21 +61,20 @@ function PostForm({ post }) {
       return value
         .trim()
         .toLowerCase()
-        .replace(/^[a-zA-Z\d\s]+/g, "-")
+        .replace(/[^a-zA-Z\d\s]+/g, "-")
         .replace(/\s/g, "-");
+
     return "";
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const subscription = watch((value, { name }) => {
       if (name === "title") {
-        setValue("slug", slugTransform(value.title, { shouldValidate: true }));
+        setValue("slug", slugTransform(value.title), { shouldValidate: true });
       }
     });
 
-    return () => {
-      subscription.unsubscribe();
-    };
+    return () => subscription.unsubscribe();
   }, [watch, slugTransform, setValue]);
 
   return (
@@ -139,5 +138,3 @@ function PostForm({ post }) {
     </form>
   );
 }
-
-export default PostForm;

@@ -5,6 +5,7 @@ import { login, logout } from "./store/authSlice.js";
 import "./App.css";
 import Header from "./components/Header/Header.jsx";
 import Footer from "./components/Footer/Footer.jsx";
+import { Outlet } from "react-router-dom";
 // import { Outlet } from "react-router-dom";
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
     <div className="min-h-screen flex flex-wrap content-between bg-gray-400">
       <div className="w-full block">
         <Header />
-        <main>{/* <Outlet /> */}</main>
+        <Outlet />
         <Footer />
       </div>
     </div>
